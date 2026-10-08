@@ -1,3 +1,4 @@
+%option noinput nounput
 %{
    //  Lexical analyzer for ALGOL-C
 
@@ -8,7 +9,6 @@ int linecount=1; //
 #include "parser.tab.h"
 
 %}
-
 
 %%
 int         {return(T_INT);}
@@ -39,10 +39,6 @@ then        {return(T_THEN);}
 "<"           {return(T_LT);}
 "!="          {return(T_NE);}
 
-
-
-
-
 [a-zA-Z][a-zA-Z0-9_]*		{if (mydebug) fprintf(stderr,"Letter found\n"); 
                        yylval.string = strdup(yytext); return(T_ID);/* return an identifier */ }
 [0-9][0-9]*	{if (mydebug) fprintf(stderr,"Digit found\n"); 
@@ -58,5 +54,3 @@ then        {return(T_THEN);}
 
 int yywrap(void)
 { return 1;}
-
-

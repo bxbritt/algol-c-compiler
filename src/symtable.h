@@ -16,7 +16,6 @@
 
     
 
-
 #ifndef _SYMTAB 
 #define _SYMTAB
 
@@ -26,15 +25,12 @@ enum  SYMBOL_SUBTYPE
 {
    SYM_SCALAR,
    SYM_FUNCTION,
-   SYM_FUNCTION_PROTO,
-    SYM_FUNCTION_PRE,
     SYM_ARRAY
 
 };
 
 void Display();
 int Delete(int level);
-
 
 struct SymbTab
 {
@@ -48,19 +44,10 @@ struct SymbTab
      struct SymbTab *next;
 };
 
-
-
 struct SymbTab * Insert(char *name, enum DataTypes my_assigned_type , enum  SYMBOL_SUBTYPE sub_type, int  level, int mysize, int offset);
 
 struct SymbTab * Search(char name[], int level, int recur );
 
-
-static struct SymbTab *first=NULL;   /* global pointers into the symbol table */
-
 char * CreateTemp();
 
-
-int Has_Proto();
-
 #endif
-

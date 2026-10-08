@@ -15,10 +15,8 @@
         otherwise recurse on the next formal (A_PARAM_LIST -> s2) and next actual (A_ARG_LIST -> s2)
 */
 
-
 #include<stdio.h>
 #include<stdlib.h>
-#include<malloc.h>
 #include "ast.h"
 #include "symtable.h"
 
@@ -59,7 +57,6 @@ void PT(int howmany)
 /* 
                             pre:   a Data Type
                             post:  a character string for that type to print */
-
 
 char * DataTypeToString(enum DataTypes mydatatype){ 
                                                     
@@ -113,7 +110,6 @@ int check_params( ASTnode * F, ASTnode *A)
 
 void ASTprint(int level,ASTnode *p) // how far down the tree we are and pointer to the tree
 {
-   int i; 
    if (p == NULL ) return;
    if (level > 10) {
        printf("ERROR: Too deep recursion, possible circular reference!\n");
@@ -378,14 +374,6 @@ void ASTprint(int level,ASTnode *p) // how far down the tree we are and pointer 
                  printf("Exiting ASTprint Immediately.\n");
                  exit(1);
 
-
        } // of switch
 }
 //                                    END OF ASTprint
-
-
-/* dummy main program so I can compile for syntax error independently   
-main()
-{
-}
-/* */

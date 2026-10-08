@@ -1,13 +1,12 @@
 /*   Abstract syntax tree code
 
-
  Header file   
  Original AST skeleton by Shaun Cooper.
 
 */
 
 #include<stdio.h>
-#include<malloc.h>
+#include<stdlib.h>
 
 #ifndef AST_H
 #define AST_H
@@ -17,35 +16,28 @@ extern int mydebug;
 sort of production rule we came across */
 
 enum ASTtype {
-   A_PROGRAM,                           //0
-   A_DECLARATION_LIST,                  //1 
-   A_VARDEC,                            //2           
-   A_FUNDEC,                            //3
-   A_NUMBER,                            //4
-   A_EXPR,                              //5
+   A_DECLARATION_LIST,
+   A_VARDEC,
+   A_FUNDEC,
+   A_EXPR,
    A_EXPR_STMT,
-   A_IFSTMT,                            //6
-   A_COMPOUNDSTMT,                      //7
-   A_SELECT,                            //8
-   A_STMT_LIST,                         //9
-   A_WRITE,                             //10
-   A_FACTOR,                            //11
-   A_NUM,                               //12
-   A_VARIABLE,                          //13
-   A_ASSIGNSTMT,                        //14
-   A_IFSTMT_ELSE,                       //15
-   A_ITERATION,                         //16
-   A_RETURN,                            //17
-   A_PARAM_LIST,                        //18
-   A_PARAM,                             //19
-   A_READ,                              //20
-   A_STRING,                            //21
-   A_CALL,                              //22
-   A_ARG_LIST,                           //23
-   A_BOOLEAN                            //24
-	 
+   A_COMPOUNDSTMT,
+   A_SELECT,
+   A_STMT_LIST,
+   A_WRITE,
+   A_NUM,
+   A_VARIABLE,
+   A_ASSIGNSTMT,
+   A_ITERATION,
+   A_RETURN,
+   A_PARAM_LIST,
+   A_PARAM,
+   A_READ,
+   A_STRING,
+   A_CALL,
+   A_ARG_LIST,
+   A_BOOLEAN
 };
-
 
 enum DataTypes {
    A_INTTYPE,
@@ -87,12 +79,10 @@ typedef struct ASTnodetype
      struct SymbTab * symbol; 
 } ASTnode;
 
-
 /* uses malloc to create an ASTnode and passes back the heap address of the newley created node */
 ASTnode *ASTCreateNode(enum ASTtype mytype);
 
 void PT(int howmany);
-
 
 int check_params( ASTnode * F, ASTnode *A);
 

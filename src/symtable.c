@@ -20,6 +20,7 @@
 #include "symtable.h"
 
 extern int LEVEL;  //include level for symbol table tracking
+static struct SymbTab *first=NULL;   /* global pointer into the symbol table */
 int GTEMP=0;  /* Global Temp counter */
 
 // PRE:   Assume one up global variable GTEMP
@@ -34,9 +35,6 @@ char * CreateTemp()
      s=strdup(hold);
      return (s);
 }
-
-
-
 
 /* Simple Insert into the symbol table with the size, type level that the name is being inserted into */
 
@@ -65,7 +63,6 @@ struct SymbTab * Insert(char *name, enum DataTypes my_assigned_type, enum  SYMBO
       p->SubType=subtype;  /* assign the Function  */
       p->next=NULL;
 
-
    //  Insert the record in the list ... 
       if(first==NULL)
       {
@@ -92,17 +89,14 @@ void PrintSym(struct SymbTab *s)
 
 }
 
-
 /*  General display to see what is our symbol table */
 
 //  PRE:  depends on global variable first
 //  POST:  Formatted output of the symbol table
 
-
 void Display()
 {
   if(mydebug){
-   int i;
    struct SymbTab *p;
    p=first;
    printf("\n\n---------------------- [SYMBOL TABLE FOR LEVEL %d] ----------------------\n", LEVEL);
@@ -121,12 +115,10 @@ void Display()
 /*  Search for a symbol name at level or below.  We have to do multiple passes into the symbol table because we have to find
    the name closest to us 
 
-
   If recur is non-zero, then we look through all of the levels, otherwise, only our level 
    We return a pointer to a SymbolTab structure so that we can use other functions/methods to get the attributes */
 
  
-
 
 // PRE:   given a name and level and recure
 //  POST:  returns NULL if not there, otherwise a PTR to the element in the table
@@ -134,7 +126,6 @@ void Display()
 //          search will continue struct until level is 0 if recur is 1 
 struct SymbTab * Search(char name[], int level, int recur)
 {
-   int i,flag=0;
    struct SymbTab *p;
 
   /* for each level, try to find our symbol */
@@ -150,7 +141,6 @@ struct SymbTab * Search(char name[], int level, int recur)
        if (recur == 0) return (NULL);   /* we did not find it at our level */
        level--; /* check the next level up */
     }
-
 
    return  NULL;  /* did not find it, return 0 */
 }
@@ -194,19 +184,3 @@ int Delete(int level)
       }
     return(SIZE);
 }
-
-// PRE:  No input
-// POST:  boolen if table has a PROTOTYPE in it
-int Has_Proto()
-{
-   struct SymbTab *p = first;
-   while (p != NULL)
-    {
-        if (p->SubType == SYM_FUNCTION_PROTO) return 1;
-        p = p->next;
-    }
-   return 0;
-
-}
-
-

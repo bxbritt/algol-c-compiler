@@ -45,7 +45,7 @@ You need `gcc`, `flex`, and `bison`.
 ```sh
 make                                  # builds ./algolc
 ./algolc -o out < examples/scopes.al  # writes out.asm
-./algolc -d -o out < examples/scopes.al   # debug: also prints the symbol table
+./algolc -d -o out < examples/scopes.al   # debug: also prints the symbol table and AST
 ```
 
 To run the generated assembly, use a MIPS simulator such as [MARS](https://github.com/dpetersanderson/MARS).

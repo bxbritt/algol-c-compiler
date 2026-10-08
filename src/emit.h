@@ -8,6 +8,3 @@
 void EMIT(ASTnode * p, FILE* fp);
 
 #endif
-
-
-

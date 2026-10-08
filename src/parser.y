@@ -8,9 +8,6 @@
   - Temp variables are allocated on the stack for intermediate values and function calls
 */
 
-
-
-
 %{
 #include "symtable.h"
 #include "ast.h"
@@ -18,8 +15,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
-
 
 extern int yylex();
 extern int mydebug;
@@ -30,17 +25,13 @@ int maxoffset; //total number of words a function has
 int OFFSET = 0; //how many words weve seen at a GLOBAL score or INSIDE a function
 int GOFFSET = 0; //holder for global offset when we enter and exit a funtion def
 
-
 void yyerror (char *s)  /* Called by yyparse on error */
 {
   printf ("%s at line %d\n", s, linecount);
 }
 
-
 %}
 /*  defines the start symbol, what values come back from LEX and how the operators are associated  */
-
-
 
 %start Program
 
@@ -62,7 +53,6 @@ void yyerror (char *s)  /* Called by yyparse on error */
 %token  T_EQ T_GE T_GT T_LE T_LT T_NE
 %token  T_IF T_ELSE T_WHILE T_ENDIF T_DO T_THEN
 
-
 %type <node> Declaration Declaration_List Var_Declaration Var_List Fun_Declaration VARIABLE        
 %type <node> Compound_Stmt Local_Declarations Statement_List Statement
 %type <node> Expression_Stmt Selection_Stmt Iteration_Stmt Assignment_Stmt Return_Stmt Read_Stmt Write_Stmt
@@ -70,12 +60,10 @@ void yyerror (char *s)  /* Called by yyparse on error */
 %type <node> Expr Params Param_List Param 
 %type <node> CALL Args Arg_list
 
-
 %type <datatype> Type_Specifier
 %type <operator> Rel_Op
 
 %type <operator> Add_Op Mult_Op
-
 
 %%	/* end specs, begin rules */
 
@@ -115,7 +103,6 @@ Var_Declaration : Type_Specifier Var_List ';'  //parent to var_list that cares a
                  }
                  $$ = $2;} //return the list of variables
                 ;
-
 
 Var_List    : T_ID   //CHECK T_IDS, ask questons before creating node
               {if(Search($1, LEVEL, 0) == NULL){
@@ -161,8 +148,6 @@ Var_List    : T_ID   //CHECK T_IDS, ask questons before creating node
                 yyerror($1);
                 yyerror("Error: Already defined variable");
                 exit(1);}}
-
-
 
             | T_ID '['T_NUM']' ',' Var_List 
             {
@@ -236,7 +221,6 @@ Param   : Type_Specifier T_ID
           $$ = ASTCreateNode(A_PARAM);
           $$ -> datatype = $1;
           $$ -> name = $2;
-
 
           if(Search($2, 1, 0) == NULL){
           $$ -> symbol = Insert($2, $1, SYM_SCALAR, 1, 1, OFFSET);
@@ -605,15 +589,11 @@ Arg_list        : Expr ',' Arg_list
 %%	
 //--------------END OF GRAMMAR RULES------------------------------------------------------//
 
-
-
-
 //-------------START OF MAIN PROGRAM------------------------------------------------------//
 int main(int argc, char * argv[])
 { 
   FILE *fp = NULL;
   char s[100];
-
 
   for(int i = 1; i < argc; i++) 
   {
@@ -649,15 +629,11 @@ int main(int argc, char * argv[])
   
   if (mydebug) fprintf(stderr, "The input is syntactically correct\n");
 
-  //we know that var program has to be set to an AST!
   if (mydebug) Display();
-  
-  EMIT(program,fp);
+  if (mydebug) ASTprint(0, program);
 
-  //ASTprint(0,program);
+  EMIT(program,fp);
   exit(0);
 }
 
-
   
-
